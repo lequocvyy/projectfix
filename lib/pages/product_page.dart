@@ -230,7 +230,7 @@ class ProductPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Danh sách sản phẩm'),
         actions: [
-          if (isAdminUser)
+
 
           PopupMenuButton<String>(
             icon: const Icon(Icons.person),
@@ -243,6 +243,7 @@ class ProductPage extends StatelessWidget {
                   ),
                 );
               } else if (value == 'logout') {
+                CartService().clear();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -272,6 +273,7 @@ class ProductPage extends StatelessWidget {
               ),
             ],
           ),
+          if (isAdminUser)
           PopupMenuButton<String>(
             icon: const Icon(Icons.add),
             onSelected: (value) {
