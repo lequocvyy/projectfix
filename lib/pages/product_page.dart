@@ -304,24 +304,30 @@ class ProductPage extends StatelessWidget {
                   );
                 },
               ),
-              if (CartService().cart.isNotEmpty)
-                Positioned(
-                  right: 4,
-                  top: 4,
-                  child: Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
+              ValueListenableBuilder<List<Map<String, dynamic>>>(
+                valueListenable: CartService().cartNotifier,
+                builder: (context, cart, _) {
+                  if (cart.isEmpty) return const SizedBox();
+                  int totalItems = cart.fold(0, (sum, p) => sum + (p['quantity'] as int));
+                  return Positioned(
+                    right: 4,
+                    top: 4,
+                    child: Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                      child: Text(
+                        '$totalItems',
+                        style: const TextStyle(color: Colors.white, fontSize: 10),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
-                    child: Text(
-                      CartService().cart.fold<int>(0, (sum, p) => sum + (p['quantity'] as int)).toString(),
-                      style: const TextStyle(color: Colors.white, fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
+                  );
+                },
+              ),
             ],
           )
         ],

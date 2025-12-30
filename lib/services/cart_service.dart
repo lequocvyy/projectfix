@@ -1,28 +1,37 @@
+import 'package:flutter/material.dart';
+
 class CartService {
   static final CartService _instance = CartService._internal();
-
   factory CartService() => _instance;
-
   CartService._internal();
 
-  final List<Map<String, dynamic>> _cart = [];
+  final ValueNotifier<List<Map<String, dynamic>>> cartNotifier = ValueNotifier([]);
 
-  List<Map<String, dynamic>> get cart => _cart;
+  List<Map<String, dynamic>> get cart => cartNotifier.value;
 
   void addProduct(Map<String, dynamic> product) {
-    // Nếu đã có sản phẩm, cộng số lượng
-    final index = _cart.indexWhere((p) =>
-    p['productId'] == product['productId']);
+    final index = cart.indexWhere((p) => p['productId'] == product['productId']);
     if (index >= 0) {
-      _cart[index]['quantity'] += product['quantity'];
+      cart[index]['quantity'] += product['quantity'];
     } else {
-      _cart.add(product);
+      cart.add(product);
     }
+    cartNotifier.value = List.from(cart); // notify listeners
   }
 
   void removeProduct(String productId) {
-    _cart.removeWhere((p) => p['productId'] == productId);
+    cart.removeWhere((p) => p['productId'] == productId);
+    cartNotifier.value = List.from(cart);
   }
 
-  void clear() => _cart.clear();
+  void updateQuantity(String productId, int quantity) {
+    final index = cart.indexWhere((p) => p['productId'] == productId);
+    if (index >= 0) cart[index]['quantity'] = quantity;
+    cartNotifier.value = List.from(cart);
+  }
+
+  void clear() {
+    cart.clear();
+    cartNotifier.value = [];
+  }
 }
