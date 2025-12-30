@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "64136560330",
+    "project_id": "buy-and-receive-anythings",
+    "storage_bucket": "buy-and-receive-anythings.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64136560330:android:075b113e006af26a49be33",
+        "android_client_info": {
+          "package_name": "com.example.projectmain"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxynE5SRF6FCYVen3GVxkADxAWu8YlZDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
